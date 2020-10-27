@@ -377,3 +377,78 @@ do
 
 ### 5.4 for循环
 
+```c++
+for (initial-action; loop-continuation-condition; action-after-each-iteration)
+{
+    statement(s);
+}
+```
+
+### 5.7 最小化数字问题
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    double sum = 0;
+    
+    for (double i = 0.01; i <= 1.0; i += 0.01)
+    {
+        sum += i;
+    }
+    cout << sum;
+    return 0;
+}
+```
+
+- 最终输出为49.4而非50.5。原因为浮点数的保存为近似值，因此，应尽量避免使用浮点数来确定循环次数
+
+- 可以这样更改for循环来避免错误
+
+	```c++
+	for (int count = 1; count < 100; count++)
+	{
+	    sum += currentValue;
+	    currentValue += 0.01;
+	}
+	```
+
+### 5.8 实例
+
+#### 5.8.1 蒙特卡洛模拟
+
+使用蒙特卡洛模拟来预估$\pi$的值
+
+```c++
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main()
+{
+    const int NUMBER_OF_TRIAL = 1000000;
+    int numberOfHit = 0;
+    srand(time(0));
+    
+    for (int i = 0; i <= NUMBER_OF_TRIAL; i++)
+    {
+        double x = rand() * 2.0 / RAND_MAX -1;
+        double y = rand() * 2.0 / RAND_MAX -1;
+        if (x*x +y*y <= 1)
+            numberOfHit++;
+    }
+    
+    double pi = 4.0 * numberOfHit / NUMBER_OF_TRIAL;
+    cout << pi
+}
+```
+
+### 5.8.2 十进制转换为十六进制
+
+```c++
+
+```
+
