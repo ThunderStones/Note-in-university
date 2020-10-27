@@ -175,7 +175,8 @@ else
 
 - 使用`rand()`函数来获得随机**整数**，该函数包含于`cstdlib`头文件中
 - 可使用`cstdlib`头文件中的`srand(seed)`函数来改变种子的值，为确保每一次种子的值都不一样，可以调用`time(0)`
-- 生成区间[m,n]的整数  `rand()%(n - m + 1) + m;`
+- 生成区间[m,n]的整数  `rand() % (n - m + 1) + m;`
+- 生成区间[a,a+b]的整数 `rand() % b + a`
 
 ### 3.10 逻辑运算符
 
@@ -284,3 +285,95 @@ atam()
 | \0       | 空字符(NULL)                        | 000                 |
 | `\ddd`   | 1到3位八进制数所代表的任意字符      | 三位八进制          |
 | `\xhh`   | 1到2位十六进制所代表的任意字符      | 二位十六进制        |
+
+### 4.10 格式化控制台输出
+
+| 流操纵算子            | 作  用                                                       |
+| --------------------- | ------------------------------------------------------------ |
+| `dec`                 | 以十进制形式输出整数                                         |
+| `hex`                 | 以十六进制形式输出整数                                       |
+| `oct`                 | 以八进制形式输出整数                                         |
+| `fixed`               | 以普通小数形式输出浮点数                                     |
+| `scientific`          | 以科学计数法形式输出浮点数                                   |
+| `left`                | 左对齐，即在宽度不足时将填充字符添加到右边                   |
+| `right`               | 右对齐，即在宽度不足时将填充字符添加到左边                   |
+| `setbase(b)`          | 设置输出整数时的进制，b=8、10 或 16                          |
+| `setw(w)`             | 指定输出宽度为 w 个字符，或输人字符串时读入 w 个字符         |
+| `setfill(c)`          | 在指定输出宽度的情况下，输出的宽度不足时用字符 c 填充（默认情况是用空格填充） |
+| `setprecision(n)`     | 设置输出浮点数的精度为 n。  在使用非 fixed 且非 scientific 方式输出的情况下，n 即为有效数字最多的位数，如果有效数字位数超过 n，则小数部分四舍五人，或自动变为科学计 数法输出并保留一共 n 位有效数字。  在使用 fixed 方式和 scientific 方式输出的情况下，n 是小数点后面应保留的位数。 |
+| `setiosflags(flag)`   | 将某个输出格式标志置为 1                                     |
+| `resetiosflags(flag)` | 将某个输出格式标志置为 0                                     |
+| `boolapha`            | 把 true 和 false 输出为字符串                                |
+| `noboolalpha`         | 把 true 和 false 输出为 0、1                                 |
+| `showbase`            | 输出表示数值的进制的前缀                                     |
+| `noshowbase`          | 不输出表示数值的进制.的前缀                                  |
+| `showpoint`           | 总是输出小数点                                               |
+| `noshowpoint`         | 只有当小数部分存在时才显示小数点                             |
+| `showpos`             | 在非负数值中显示 +                                           |
+| `noshowpos`           | 在非负数值中不显示 +                                         |
+| `skipws`              | 输入时跳过空白字符                                           |
+| `noskipws`            | 输入时不跳过空白字符                                         |
+| `uppercase`           | 十六进制数中使用 A~E。若输出前缀，则前缀输出 0X，科学计数法中输出 E |
+| `nouppercase`         | 十六进制数中使用 a~e。若输出前缀，则前缀输出 0x，科学计数法中输出 e。 |
+| `internal`            | 数值的符号（正负号）在指定宽度内左对齐，数值右对 齐，中间由填充字符填充。 |
+
+### 4.11 简单的文件输入输出
+
+#### 4.11.1 写入文件
+
+```c++
+#include <fstream>  //定义了ofstream类
+//声明ofstream类型的变量
+ofstream output;
+//调用open函数,创建文件，如果文件存在，则覆盖
+output.open("number.txt")
+//写入数据
+output << 95 << " " << 56
+//关闭文件
+output.close()
+```
+
+#### 4.11.2 读取一个文件
+
+```c++
+#include <fstream>  //定义了ifstream类
+//声明ifstream类型的变量
+ifstream input;
+//调用open函数,打开文件
+input.open("number.txt")
+//读取数据
+input >> variable1
+//关闭文件
+input.close()
+```
+
+
+
+## 第五章 循环
+
+### 5.2 `while`循环和`do-while`循环
+
+```c++
+//先判断条件，再执行循环体
+while (loop-continuation-condition)
+{
+	statement(S);
+}
+
+//先执行循环体，再判断条件
+do
+{
+    statement(s);
+} while (loop-continuation-condition)
+```
+
+#### 5.2.6 输入和输出重定向
+
+我不明白
+
+#### 5.2.7读取所有输入
+
+- `eof()`函数由于检测是否到达文件末尾，当没有可读的内容时，返回true
+
+### 5.4 for循环
+
