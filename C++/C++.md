@@ -512,5 +512,56 @@ int main()
 - ```c++
 	#include <iostream>
 	using namespace std;
+	double maxNumber(int num1, double num2)
+	{
+	    return num1 >= num2 ? num1 : num2;
+	}
+	
+	double maxNumber(double num1, int num2)
+	{
+	    return num1 >= num2 ? num1 : num2;
+	}
+	
+	int main()
+	{
+	    cout << maxNumber(1,2);
+	}
+	//more than one instance of overloaded function "maxNumber" matches the argument list: -- function "maxNumber(int num1, double num2)" (declared at line 3) -- function "maxNumber(double num1, int num2)" (declared at line 8) -- argument types are: (int, int)
+	//call of overloaded 'maxNumber(int, int)' is ambiguous
+	```
+
+### 6.8 函数原型
+
+在调用函数之前，必须先声明。
+	
+- 将函数声明放在所有函数调用之前
+	
+- 在函数调用之前声明一个函数原型
+	
+	- 函数原型，是一个没有函数体（函数实现）的函数声明，函数实现可以在后面给出
+	
+	- 在函数原型中不必给出参数的名称，只需列出参数类型
+	
+	- ```c++
+		returnValueType functionName(list of parameters)
+		```
+
+### 6.9 缺省参数
+
+```c++
+returnValueType functionName(type parameters = defaultValue)
+{
+    //function body
+}
+```
+
+### 6.10 内联函数
+
+		函数调用有额外的运行开销。C++提供了内联函数的功能可避免函数调用的开销。内联函数不会被调用，实际上编译器将代码复制到了每一个调用点上。在函数声明前加上关键字inline即可指定该函数为内联函数。
+
+```c++
+inline returnValueType functionName(list of parameters)
+{
+    //function body
 ```
 
