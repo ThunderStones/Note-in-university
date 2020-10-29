@@ -563,5 +563,6 @@ returnValueType functionName(type parameters = defaultValue)
 inline returnValueType functionName(list of parameters)
 {
     //function body
+}
 ```
 
