@@ -449,6 +449,68 @@ int main()
 ### 5.8.2 十进制转换为十六进制
 
 ```c++
+#include <iostream>
+#include <string>
+using namespace std;
 
+int main()
+{
+    int inputDex;
+    cin >> inputDex;
+    string outputHex;
+    while (inputDex != 0)
+    {
+        int modValue = inputDex % 16;
+        char hexChar = !(modValue >= 0 && modValue <= 9) ? static_cast<char>(modValue - 10 +'A') : static_cast<char>(modValue + '0');
+        outputHex = hexChar + outputHex;
+        inputDex = inputDex / 16;
+
+    }
+    cout << outputHex;
+}
+```
+
+### 5.9 关键字break和continue
+
+- break 立即终止循环
+- continue 结束本次循环，进入下一循环
+
+## 第六章 函数
+
+### 6.2 函数定义
+
+- 一个函数由函数名、参数、返回值类型和主体构成
+
+- ```c++
+	returnValueType functionName(list of parameters)
+	{
+	    //function body
+	}
+	```
+
+- 函数签名（function signature）包括函数名和参数列表，用于标记不同的函数。
+
+### 6.5 以传值方式传递参数
+
+---
+
+### 6.7 函数重载
+
+- max函数最初只能对`int`类使用，但通过函数重载，可以使它对浮点类使用，只需创建一个函数，使用**相同**的名称，但是**不同的参数**
+
+- ```c++
+	double max(double num1, double num2)
+	{
+	    return num1 >= num2 ? num1 : num2
+	}
+	```
+
+- 编译器在调用函数时，会自动选择更匹配的函数
+
+- 调用函数时，有匹配度相同的两个重载函数，会发生编译错误
+
+- ```c++
+	#include <iostream>
+	using namespace std;
 ```
 
