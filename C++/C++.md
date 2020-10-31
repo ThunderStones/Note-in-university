@@ -732,3 +732,53 @@ myList[i-1] = temp
 ### 7.6 防止函数修改传递参数的数组
 
 - 可以在函数中定义`const`数组参数来防止数组在函数被修改
+
+- 	```c++
+	returnValueType functionName(const arrayType [])
+	//如果对这个数组进行修改，编译器会报错
+	```
+	
+- 如果在函数f1中定义了一个`const`变量，而这个变量传递给了另一个函数f2，那么f2的对应参数必须声明为`const`类型，否组编译器会报错
+
+### 7.7 数组作为函数值返回
+
+C++不允许定义返回类型为数组的函数，但可以向函数传递两个参数，使函数返回一个数组
+
+### 7.11 C字符串
+
+- C字符串时一个字符数组，以`\0`(空终结符)结尾
+
+#### 7.11.1 输入和输出C字符串
+
+- 输出 `cout << s;`
+
+- ```c++
+	//输入
+	char s[5];
+	cin >> s;
+	```
+
+- ```c++
+	//使用cin不能读取有空格的字符串
+	//可使用cin.getline()函数代替
+	cin.getline(char array[], int size, char delimitChar = '\n')
+	```
+
+#### 7.11.2 C字符串函数
+
+|                        函数                         |                      描述                      |
+| :-------------------------------------------------: | :--------------------------------------------: |
+|              `size_t strlen(char s[])`              |  返回字符串的长度，即在空字符串之前的字符个数  |
+|        `strcpy(char s1[], const char s2[])`         |              将字符串s2复制到s1中              |
+|   `strncpy(char s1[], const char s2[], size_t n)`   |        将字符串s2中前n个符号复制到s1中         |
+|        `strcat(char s1[], const char s2[])`         |             将字符串s2拼接到s1之后             |
+|   `strncat(char s1[], const char s2[], size_t n)`   |         将字符串前n个符号拼接到s1之后          |
+|      `int strcmp(char s1[], const char s2[])`       | 通过对比字符的数值码，判断s1和s2的大小并返回值 |
+| `int strncmp(char s1[], const char s2[], size_t n)` |                 对比前n个字符                  |
+|                `int atoi(char s[])`                 |            返回对应字符串的int型值             |
+|               `double atof(char s[])`               |           返回对应字符串的double型值           |
+|                `long atol(char s[])`                |            返回对应字符串的long型值            |
+|     `void itoa(int value, char s[], int radix)`     |   获得一个字符串的整数值，基于一个指定的集数   |
+
+- 除了`atoi,atof,atol`定义在`cstdlib`头文件下，所有函数定义在`cstring`头文件下
+- `size_t`是一个C++类型，对于大多数编译器，它和`unsigned int`相同
