@@ -533,7 +533,6 @@ int main()
 ### 6.8 函数原型
 
 在调用函数之前，必须先声明。
-	
 - 将函数声明放在所有函数调用之前
 	
 - 在函数调用之前声明一个函数原型
@@ -548,6 +547,8 @@ int main()
 
 ### 6.9 缺省参数
 
+​		函数调用有额外的运行开销。C++提供了内联函数的功能可避免函数调用的开销。内联函数不会被调用，实际上编译器将代码复制到了每一个调用点上。在函数声明前加上关键字inline即可指定该函数为内联函数。
+
 ```c++
 returnValueType functionName(type parameters = defaultValue)
 {
@@ -557,7 +558,7 @@ returnValueType functionName(type parameters = defaultValue)
 
 ### 6.10 内联函数
 
-		函数调用有额外的运行开销。C++提供了内联函数的功能可避免函数调用的开销。内联函数不会被调用，实际上编译器将代码复制到了每一个调用点上。在函数声明前加上关键字inline即可指定该函数为内联函数。
+
 
 ```c++
 inline returnValueType functionName(list of parameters)
@@ -566,3 +567,168 @@ inline returnValueType functionName(list of parameters)
 }
 ```
 
+### 6.11 局部、全局和静态局部变量
+
+- c++中，一个变量可以被声明为局部、全局和静态局部变量。
+- 一个变量的作用域就是能引用该变量的程序范围
+- 函数内部定义的变量称为局部变量
+- 全局变量定义在所有函数之外，可被其作用域内的所有函数访问
+- 局部变量没有缺省值，全局变量缺省值为0
+- 函数的参数为局部变量，作用域覆盖整个函数
+
+#### 6.11.1 for循环中变量的作用域
+
+一个变量如果声明在for循环的循环头初始化动作中，其作用域覆盖整个循环。
+
+#### 6.11.2 静态局部变量
+
+当函数执行结束后，其所有局部变量都会被销毁，这些变量也成为自动变量。又是，我们需要保留局部变量的值，以便在下次调用时使用。c++提供了静态局部变量机制来达到此目的，静态局部变量会一直驻留在内存中。静态局部变量的声明使用关键字static。
+
+```c++
+#include <iostream>
+using namespace std;
+
+void t1();
+int main ()
+{
+    t1();
+    t1();
+    //cout x;
+    return 0;
+}
+
+void t1()
+{
+    static int x = 1;
+    int y = 1 ;
+    x++;
+    y++;
+    cout << x << y;
+}
+
+//output 2232
+```
+
+### 6.12 以引用方式传递函数
+
+- 参数可以通过引用的方式调用，使形参是实参的一个**别名**。函数中参数的改变也改变了参数的实际值。
+
+- 可以减少内存占用
+
+- ```c++
+	//声明引用变量,以下三种方式等价
+	datatype &refVar;
+	datatype & refVar;
+	datatype& refVar;
+	```
+
+- ```c++
+	//以交换两个数为例
+	void swap(int& num1, int& num2)
+	{
+	    int temp = num1;
+	    num1 = num2;
+	    num2 = temp;
+	}
+	```
+
+- 使用引用传递的时候，实参必须是个变量。当使用值传递的时候，传入的参数可以是数值、一个变量或者是一个表达式，甚至是另一个函数的返回值。
+
+### 6.13 常量引用参数
+
+- 如果程序使用了一个传递引用的参数，参数在函数中不能改变，应该把这个参数设置为常量。
+- 把关键字`const`加在函数的形参声明之前
+- 如果对其赋值，会发生编译错误
+
+### 6.14 十六进制转换为十进制
+
+```c++
+#include <iostream>
+#include <string>
+#include <cctype>
+using namespace std;
+int hexToNum(char ch)
+{
+    ch = toupper(ch);
+    if (ch >= 'A' and ch <= 'F')
+    {
+        return 10 + ch - 'A';
+    }
+    else
+    {
+        return ch - '0';
+    }
+    
+}
+int hexToDex(string hex)
+{
+    int dec = 0;
+    for (int j = 0; j < hex.size(); j++)
+    {
+        dec = dec * 16 + hexToNum(hex[j]);
+    }
+    return dec;
+    
+}
+
+int main()
+{
+    string inputHex;
+    cin >> inputHex;
+    int decResult = hexToDex(inputHex);
+    cout << decResult;
+}
+```
+
+## 第七章 一维数组和C字符串
+
+### 7.2数组基础
+
+#### 7.2.1 声明数组
+
+- 语法 `elementType arrayName[SIZE]`
+- `elementType`可以是任何数据类型，并且**同一个数组成员**都将是同样的数据类型
+- `SIZE`为数组大小说明符，必须为大于0的**常量表达式**
+- 对数组元素赋值`arrayName[index] = value;`
+- 同时定义多个同类型的数组`elementType arrayName1[Size1], arrayName2[Size2],...`
+
+#### 7.2.2 访问数组元素
+
+- `arrayName[index]`
+- 数组元素通过下标(index)来访问，数组下标从**0**开始到size-1
+- 访问数组元素时，下标越界是严重的错误，会造成意想不到且难以察觉的错误，但是C++编译器不会报错。访问越界下标数组会返回该内存地址中的信息，但这些信息不是我们想要的
+
+#### 7.2.3 数组初始化语句
+
+`elementType arrayName[arraySize] = {value0, value1,..., valuek}`
+
+- `arraySize`可以省略，C++编译器会自动计算数组大小
+- C++允许只初始化一部分数组，未初始化的元素值为0
+- 当一个数组被创建但未初始化时，里面的元素都是~~垃圾~~不确定的内容
+
+#### 7.2.4 处理数组
+
+**随机重排**
+
+```c++
+//对myList数组重排
+double temp = myList[0];
+
+for (int i = 1; i < ARRAY_SIZE; i++)
+{
+    myList[i-1] = myList[i]
+}
+myList[i-1] = temp
+```
+
+### 7.5 数组作为函数参数
+
+- ```c++
+	//声明函数原型
+	returnValueType functionName(arrayType [])
+	```
+- 当一个数组参数传递给一个函数，数组的起始地址被传递给了函数中的数组参数。实参和形参使用的时同一个数组
+
+### 7.6 防止函数修改传递参数的数组
+
+- 可以在函数中定义`const`数组参数来防止数组在函数被修改
