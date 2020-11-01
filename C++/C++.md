@@ -122,7 +122,7 @@ int main()
 - 语法`static_cast<type>(value)`等价于`(type)value`
 - 数值类型转换并不改变被转换变量的值
 
-## 第三章
+## 第三章 分支语句
 
 ### 3.2 bool数值类型
 
@@ -775,10 +775,28 @@ C++不允许定义返回类型为数组的函数，但可以向函数传递两�
 |   `strncat(char s1[], const char s2[], size_t n)`   |         将字符串前n个符号拼接到s1之后          |
 |      `int strcmp(char s1[], const char s2[])`       | 通过对比字符的数值码，判断s1和s2的大小并返回值 |
 | `int strncmp(char s1[], const char s2[], size_t n)` |                 对比前n个字符                  |
-|                `int atoi(char s[])`                 |            返回对应字符串的int型值             |
-|               `double atof(char s[])`               |           返回对应字符串的double型值           |
-|                `long atol(char s[])`                |            返回对应字符串的long型值            |
+|                `int atoi(char s[])`                 |           返回对应字符串的`int`型值            |
+|               `double atof(char s[])`               |          返回对应字符串的`double`型值          |
+|                `long atol(char s[])`                |           返回对应字符串的`long`型值           |
 |     `void itoa(int value, char s[], int radix)`     |   获得一个字符串的整数值，基于一个指定的集数   |
 
 - 除了`atoi,atof,atol`定义在`cstdlib`头文件下，所有函数定义在`cstring`头文件下
 - `size_t`是一个C++类型，对于大多数编译器，它和`unsigned int`相同
+
+#### 7.11.5使用`strcmp`函数比较字符串
+
+通过比较每个字符串对应的数值码（多数编译器使用ASCII码），如果s1等于s2，则返回0，s1小于s2，则返回值小于0，s1大于s2，则返回值大于0。比较时，两个字符串逐个字符比较，相等则比较下一个字符。若前面的字符都相等，则先结束的字符小
+
+#### 7.11.6 字符串和数字之间的转换
+
+- 函数`atoi`可以把C字符串转换为`int`类型的整数
+- 函数`atol`可以把C字符串转换为`long`类型的整数
+- 函数`atof`可以把C字符串转换为浮点数
+- 函数`itoa`可以把C字符串按照指定的进制转换为C字符串`itoa(int num1, char [], int num2)`，其中，num1为待转换的数值，num2为指定的进制（有些编译器不支持`itoa`函数）
+
+## 第八章 多维数组
+
+### 8.2 声明二维数组
+
+- `elementType arrayName[ROW_SIZE][COLLMN_SIZE]` 
+
